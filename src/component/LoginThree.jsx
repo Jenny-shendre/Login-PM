@@ -144,13 +144,11 @@ function LoginThree() {
           </div>
           {showGuidelines && (
             <div
-              // onClick={() => setShowGuidelines(false)}
               ref={guidelinesRef}
-              className="fixed inset-0 bg-black   bg-opacity-75 flex flex-col items-center justify-center z-50"
+              className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
             >
-
               <div
-                className="bg-[#F7F3E8] text-black border-[5px] border-[#632E04] p-4 rounded-lg shadow-md guidelines-label"
+                className="relative bg-[#F7F3E8] text-black  p-4 rounded-lg shadow-md guidelines-label"
                 style={{ fontFamily: "Manrope", fontSize: "16px", fontWeight: "500", width: '426px' }}
                 onClick={(e) => e.stopPropagation()}
               >
@@ -174,14 +172,14 @@ function LoginThree() {
                     </ul>
                   </li>
                 </ul>
+                <span
+                  className='absolute right-2 text-[#632E04] cursor-pointer'
+                  onClick={() => setShowGuidelines(false)}
+                  style={{ fontFamily: "Manrope", fontSize: "60px", fontWeight: "500", marginTop: "-471px" }}
+                >
+                  &times;
+                </span>
               </div>
-              <p
-                className='mt-10 cursor-pointer w-full text-white blink'
-                onClick={() => setShowGuidelines(false)}
-                style={{ fontFamily: "Manrope", fontSize: "20px", fontWeight: "500", textAlign: "center" }}
-              >
-                <i className="mr-3 fa-regular fa-hand-pointer fa-rotate-90"></i> Click here to exit
-              </p>
             </div>
           )}
           <div className="text-left mb-6 mx-auto" style={{ maxWidth: '426px' }}>
