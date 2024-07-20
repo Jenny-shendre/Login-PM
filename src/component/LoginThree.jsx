@@ -148,7 +148,7 @@ function LoginThree() {
               className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
             >
               <div
-                className="relative bg-[#F7F3E8] text-black border-[1px] border-[#632E04] p-4 rounded-lg shadow-md guidelines-label"
+                className="relative bg-[#F7F3E8] text-black  p-4 rounded-lg shadow-md guidelines-label"
                 style={{ fontFamily: "Manrope", fontSize: "16px", fontWeight: "500", width: '426px' }}
                 onClick={(e) => e.stopPropagation()}
               >
