@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.blink {
+    animation: scaler 2s linear infinite;
+}
+
+@keyframes scaler {
+
+
+    50% {
+        transform: scale(1.2);
+    }
+}
