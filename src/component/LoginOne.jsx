@@ -1,30 +1,67 @@
 import React, { useState } from "react";
+import axios from "axios";
 import Logo from "../assets/Logo.png";
 import Eye from "../assets/Eye.png";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function LoginOne() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  const handleSubmit = (e) => {
+  const handleForgotPassword = async () => {
+    if (!email) {
+      setErrorMessage("Please enter your email to reset your password.");
+      return;
+    }
+    setErrorMessage(""); // Clear any previous error messages
+
+    try {
+      const token = localStorage.getItem('jwtToken'); // Get the JWT token from localStorage
+      const response = await axios.post(
+        'https://project-rof.vercel.app/api/login/forgot-password',
+        { email },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` // Include the JWT token in the Authorization header
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setSuccessMessage("Password reset link has been sent to your email.");
+      } else {
+        setErrorMessage(response.data.message || "Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      if (error.response) {
+        setErrorMessage(error.response.data.message || "Failed to send password reset link. Please try again later.");
+      } else if (error.request) {
+        setErrorMessage("No response received from server. Please try again later.");
+      } else {
+        setErrorMessage("Error in setting up the request. Please try again.");
+      }
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
       setErrorMessage("Please fill in both email and password.");
       return;
     }
     setErrorMessage(""); // Clear any previous error messages
-    console.log("Email:", email);
-    console.log("Password:", password);
-    //  send the data to backend
-  };
-
+    console.log("Email:",email);
+    console.log("Password:",password);
+  
+    }
   return (
     <div className="bg-[#F7F3E8] flex items-center justify-center min-h-screen px-4">
       <div className="bg-white shadow-md rounded-lg py-[40px] px-[20px] text-center w-[555px] h-auto max-w-lg hero">
@@ -104,13 +141,14 @@ function LoginOne() {
               >
                 Password
               </label>
-              <Link to="/login-two">
-                <span
-                  className="text-[#632E04] text-sm font-medium"
-                  style={{ fontFamily: "Manrope", fontSize: "14px", fontWeight: "500" }}
-                >
-                  Forgot your password?
-                </span>
+              <Link to ="/login-two">
+              <span
+                className="text-[#632E04] text-sm font-medium cursor-pointer"
+                style={{ fontFamily: "Manrope", fontSize: "14px", fontWeight: "500" }}
+                onClick={handleForgotPassword}
+              >
+                Forgot your password?
+              </span>
               </Link>
             </div>
             <div className="relative">
@@ -144,6 +182,12 @@ function LoginOne() {
           {errorMessage && (
             <p className="text-red-500 mb-4" style={{ fontFamily: "Manrope", fontSize: "14px", fontWeight: "500" }}>
               {errorMessage}
+            </p>
+          )}
+
+          {successMessage && (
+            <p className="text-green-500 mb-4" style={{ fontFamily: "Manrope", fontSize: "14px", fontWeight: "500" }}>
+              {successMessage}
             </p>
           )}
 
