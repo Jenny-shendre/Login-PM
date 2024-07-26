@@ -8,6 +8,7 @@ function LoginOne() {
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [role, setRole] = useState("Super Admin");
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -22,6 +23,7 @@ function LoginOne() {
     setErrorMessage(""); // Clear any previous error messages
     console.log("Email:", email);
     console.log("Password:", password);
+    console.log("Role:", role);
     //  send the data to backend
   };
 
@@ -54,20 +56,77 @@ function LoginOne() {
             lineHeight: "24.59px",
             textAlign: "center",
           }}
-          className="text-[#747474] mb-8"
+          className="text-[#747474] mb-6"
         >
           Use your work email to log in your team workspace
         </p>
 
         <form onSubmit={handleSubmit}>
-          <div className="text-left mb-4 mx-auto" style={{ maxWidth: '426px' }}>
+          <div className="mb-4 mx-auto" style={{ maxWidth: '426px' }}>
+            <div className="flex justify-between mb-6">
+              <label
+                style={{
+                  fontFamily: "Manrope",
+                  fontSize: "18px",
+                  fontWeight: "500",
+
+                }}
+              >
+                <input
+                  type="radio"
+                  name="role"
+                  value="Super Admin"
+                  checked={role === "Super Admin"}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="mr-2 custom-radio"
+                />
+                Super Admin
+              </label>
+              <label
+                style={{
+                  fontFamily: "Manrope",
+                  fontSize: "18px",
+                  fontWeight: "500",
+
+                }}
+              >
+                <input
+                  type="radio"
+                  name="role"
+                  value="Manager"
+                  checked={role === "Manager"}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="mr-2 custom-radio"
+                />
+                Manager
+              </label>
+              <label
+                style={{
+                  fontFamily: "Manrope",
+                  fontSize: "18px",
+                  fontWeight: "500",
+
+                }}
+              >
+                <input
+                  type="radio"
+                  name="role"
+                  value="Sales Executive"
+                  checked={role === "Sales Executive"}
+                  onChange={(e) => setRole(e.target.value)}
+                  className="mr-2 custom-radio"
+                />
+                Sales Executive
+              </label>
+            </div>
+
             <label
               style={{
                 fontFamily: "Manrope",
                 fontSize: "18px",
                 fontWeight: "500",
               }}
-              className="block text-[#353535] text-sm font-bold mb-2"
+              className="block text-[#353535] text-start text-sm font-bold mb-2"
               htmlFor="email"
             >
               Email ID
@@ -121,7 +180,7 @@ function LoginOne() {
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                maxLength={10} // Set maxLength to 10
+                maxLength={10}
                 style={{
                   width: '426px',
                   borderWidth: '1.5px',
